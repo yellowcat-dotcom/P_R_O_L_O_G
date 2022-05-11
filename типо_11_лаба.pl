@@ -104,5 +104,21 @@ minCifr(X,Y) :-
 
 %Задание_18
 %Найти минимальную нечетную цифру числа.Ракурсия вниз
+minDown(0,NowMin,Min):-(NowMin mod 2 =\=0, Min is NowMin, print(Min); print('NoChetCifr')),!.
+minDown(Num,NowMin,Min):-
+    Num1 is Num div 10,
+    Digit is Num mod 10,
+    (Digit<NowMin,Digit mod 2 =\= 0 ->minDown(Num1,Digit,Min);minDown(Num1,NowMin,Min)).
+minDown(Num,Min):-minDown(Num,10,Min).
 
+%Задание_19
+% Реализовать предикат fib(N,X), где Х - число Фибоначчи с номером N, причем 1 и 2 элемент равны 1 с помощью рекурсии вверх
+fib(1,1) :- !.
+fib(2,1) :- !.
+fib(N,X) :- N1 is N-1, N2 is N-2, fib(N1,X1), fib(N2, X2), X is X1 + X2.
 
+%Задание_20
+% Реализовать предикат fib(N,X), где Х - число Фибоначчи с номером N, причем 1 и 2 элемент равны 1 с помощью рекурсии вниз
+fibDown(N,X):-fibDown(1,1,2,N,X).
+fibDown(_,F,N,N,F):-!.
+fibDown(A,B,K,N,X):-C is A+B, K1 is K+1,fibDown(B,C,K1,N,X).
