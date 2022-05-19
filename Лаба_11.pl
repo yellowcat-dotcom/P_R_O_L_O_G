@@ -80,3 +80,13 @@ maxCifr(X,Y) :-
     V is X // 10,
     maxCifr(V,C),
     Y is max(N,C).
+
+%Задание_16
+%Найти максимальную цифру числа.Рекурсия вниз
+maxDown(X,Y,Z) :- X < 10, Y is max(X,Z).
+maxDown(X,Y,Z) :-
+    N is X mod 10,
+    V is X // 10,
+    NewZ is max(Z,N),
+    maxDown(V,Y,NewZ).
+maxDown(X,Y) :- maxDown(X,Y,0).
