@@ -78,3 +78,11 @@ fun(X,Y,S):-
 %ѕостроить предикат, получающий длину списка.
 lengt([],0):-!.
 lengt([_|T], R) :- length(T,I), R is I + 1.
+
+
+%ѕредикаты чтени€ и вывода списка
+readList(0,[]) :- !.
+readList(I,[X|T]) :- write('input - '),read(X), I1 is I - 1, readList(I1, T).
+
+write_list([]) :- !.
+write_list([X|T]) :- write(X), nl, write_list(T).
