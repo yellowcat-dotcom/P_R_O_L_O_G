@@ -46,3 +46,28 @@ summ(X,0,Y,S,SS_const):-!,Y is S.
 summ(X,X2,Y,S,SS_const):-
      NX2 is X2-1,
      (0 is X mod X2, nod(SS_const,X2,K), 1 is K -> N_S is S+X2, summ(X,NX2,Y,N_S,SS_const);summ(X,NX2,Y,S,SS_const)).
+
+
+
+%Задание_13
+%Число в 5 степень    ЭТУ ЗАДАЧУ МНЕ МОЖНО НЕ ДЕЛАТЬ)
+stepen_5(X,Y):- Y is X*X*X*X*X.
+
+%Если число имеет как минимум n >= 7 цифр, тогда даже если цифр 9, n * 9^5 все равно меньше чем число(которое минимум 10^n).
+f(X,Y):-f(X,Y,0).
+f(0,Y,S):-!,Y is S.
+f(X,Y,S):-
+      X1 is X mod 10,  %посчитала сумму цифр в пятой степени
+     N_X is X div 10,
+     stepen_5(X1,L),
+     N_S is S+L,
+     f(N_X,Y,N_S).
+
+fun(Y):- fun(1000000,Y,0).
+fun(1,Y,S):-!,Y is S.
+fun(X,Y,S):-
+     stepen_5(X,Q),
+     f(X,R),
+     N_X is X-1,
+     %print(Q),nl, print(R),nl,
+     (Q =:= R -> N_S=S+X, fun(N_X,Y,N_S);fun(N_X,Y,S)).
