@@ -99,3 +99,12 @@ minCifr(X,Y) :-
     minCifr(X1,Y1),
     Y2 is X mod 10,
     (Y2<Y1, Y2 mod 2 =\=0 -> Y is Y2; Y is Y1).
+
+%Задание_18
+%Найти минимальную нечетную цифру числа.Ракурсия вниз
+minDown(0,NowMin,Min):-(NowMin mod 2 =\=0, Min is NowMin, print(Min); print('NoChetCifr')),!.
+minDown(Num,NowMin,Min):-
+    Num1 is Num div 10,
+    Digit is Num mod 10,
+    (Digit<NowMin,Digit mod 2 =\= 0 ->minDown(Num1,Digit,Min);minDown(Num1,NowMin,Min)).
+minDown(Num,Min):-minDown(Num,10,Min).
