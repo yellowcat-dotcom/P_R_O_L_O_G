@@ -71,3 +71,12 @@ grand_sons(X):-grand_so(Y,X),print(Y),nl,fail.
 %Построить предикат grand_pa_and_da(X,Y), который проверяет, являются ли X и Y дедушкой и внучкой или внучкой и дедушкой.
 grand_pa_and_da(X,Y):-man(X),parent(X,Z),parent(Z,Y),woman(Y).
 grand_pa_and_da(X,Y):-man(Y),parent(Y,Z),parent(Z,X),woman(X).
+
+%Задание_15
+%Найти максимальную цифру числа.Рекурсия вверх
+maxCifr(X,Y) :- X < 10, Y is X.
+maxCifr(X,Y) :-
+    N is X mod 10,
+    V is X // 10,
+    maxCifr(V,C),
+    Y is max(N,C).
