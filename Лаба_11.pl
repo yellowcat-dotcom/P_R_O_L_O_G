@@ -54,3 +54,9 @@ parent(zhdana,zlatomir).
 % Построить предикат, son(X), который выводит сына X.
 son(X,Y):-parent(Y,X), man(X).
 son(X):-parent(X,Y),son(Y,X),print(Y),nl,fail.
+
+%Задание_12
+%Постро предикат husband(X, Y), который проверяет, является ли X мужем Y.
+%Построить предикат husband(X), который выводит мужа X.
+husband(X,Y):-parent(X,Z),parent(Y,Z), man(X),woman(Y),!.
+husband(X):-husband(Y,X),print(Y),nl,fail.
