@@ -236,3 +236,16 @@ yvelElem([H|T],L,Nl,Index,Count):-
      NC is Count+1,
      (Index =:= Count,append(Nl,[10000],C);append(Nl,[H],C)), yvelElem(T,L,C,Index,NC).
 task19(L,Ot):-minIndex(L,X,Y),yvelElem(L,Nl,Y),minIndex(Nl,K,R),D is Y-R,(D<0,D1 is D*(-1),print(D1);print(D)).
+
+
+
+%Задание_20
+%Дан целочисленный массив и интервал a..b. Необходимо проверить наличие максимального элемента массива в этом интервале.
+ifMaxBetweenAB(List,A,B,Flag):-
+    maxIndex(List,Max,_),
+    (A<Max,B>Max,Flag is 1;Flag is 0).
+
+task20:-
+      read(N),
+      readList(N,List),
+      read(A),read(B),ifMaxBetweenAB(List,A,B,Flag),write(Flag),!.
