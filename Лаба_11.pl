@@ -108,3 +108,9 @@ minDown(Num,NowMin,Min):-
     Digit is Num mod 10,
     (Digit<NowMin,Digit mod 2 =\= 0 ->minDown(Num1,Digit,Min);minDown(Num1,NowMin,Min)).
 minDown(Num,Min):-minDown(Num,10,Min).
+
+%Задание_19
+% Реализовать предикат fib(N,X), где Х - число Фибоначчи с номером N, причем 1 и 2 элемент равны 1 с помощью рекурсии вверх
+fib(1,1) :- !.
+fib(2,1) :- !.
+fib(N,X) :- N1 is N-1, N2 is N-2, fib(N1,X1), fib(N2, X2), X is X1 + X2.

@@ -224,3 +224,15 @@ task18:-
       q(List,L),
       append([L],List,NewList),
       write_list1(NewList),!.
+
+
+
+%Задание_19
+%Дан целочисленный массив. Необходимо найти количество элемен-тов между первым и последним минимальным.
+
+yvelElem([H|T],L,Index):-yvelElem([H|T],L,[],Index,0).
+yvelElem([],L,L,_,_):-!.
+yvelElem([H|T],L,Nl,Index,Count):-
+     NC is Count+1,
+     (Index =:= Count,append(Nl,[10000],C);append(Nl,[H],C)), yvelElem(T,L,C,Index,NC).
+task19(L,Ot):-minIndex(L,X,Y),yvelElem(L,Nl,Y),minIndex(Nl,K,R),D is Y-R,(D<0,D1 is D*(-1),print(D1);print(D)).
