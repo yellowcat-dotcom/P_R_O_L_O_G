@@ -90,3 +90,12 @@ maxDown(X,Y,Z) :-
     NewZ is max(Z,N),
     maxDown(V,Y,NewZ).
 maxDown(X,Y) :- maxDown(X,Y,0).
+
+%Задание_17
+%Найти минимальную нечетную цифру числа.Ракурсия вверх
+minCifr(0,99) :- !.
+minCifr(X,Y) :-
+    X1 is X div 10,
+    minCifr(X1,Y1),
+    Y2 is X mod 10,
+    (Y2<Y1, Y2 mod 2 =\=0 -> Y is Y2; Y is Y1).
