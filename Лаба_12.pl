@@ -190,3 +190,19 @@ swapBetweenMinAndMax(List,NewList):-
     append(FSPart,ThirdPart,NewList).
 
 task16:- read(N),readList(N,List),swapBetweenMinAndMax(List,NewList),write_list(NewList),!.
+
+
+
+%Задание_17
+%Дан целочисленный массив. Необходимо поменять местами мини-мальный и максимальный элементы массива.
+ff([H|T],L):-minIndex([H|T],Min,MinInd),maxIndex([H|T],Max,MaxInd),ff([H|T],Min,MinInd,Max,MaxInd,0,[],L).
+ff([],_,_,_,_,_,L,L):-!.
+ff([_|T],Min,MinInd,Max,MaxInd,NowInd,M,L):-
+    N_I is NowInd+1,
+    NowInd =:=MinInd,!, append(M,[Max],C),ff(T,Min,MinInd,Max,MaxInd,N_I,C,L).
+
+ff([_|T],Min,MinInd,Max,MaxInd,NowInd,M,L):- N_I is NowInd+1,
+     NowInd =:=MaxInd,!, append(M,[Min],C),ff(T,Min,MinInd,Max,MaxInd,N_I,C,L).
+ff([H|T],Min,MinInd,Max,MaxInd,NowInd,M,L):- N_I is NowInd+1,append(M,[H],C), ff(T,Min,MinInd,Max,MaxInd,N_I,C,L).
+
+tassk17:- read(N),readList(N,List),ff(List,NewList),write_list(NewList),!.
