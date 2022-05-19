@@ -60,3 +60,9 @@ son(X):-parent(X,Y),son(Y,X),print(Y),nl,fail.
 %ѕостроить предикат husband(X), который выводит мужа X.
 husband(X,Y):-parent(X,Z),parent(Y,Z), man(X),woman(Y),!.
 husband(X):-husband(Y,X),print(Y),nl,fail.
+
+%«адание_13
+%ѕост предикат grand_so(X, Y), который провер€ет, €вл€етс€ ли X внуком Y.
+%ѕостроить предикат grand_sons(X), который выводит всех внуков X.
+grand_so(X,Y):-parent(Y,Z),son(X,Z).
+grand_sons(X):-grand_so(Y,X),print(Y),nl,fail.
