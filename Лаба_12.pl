@@ -80,9 +80,39 @@ lengt([],0):-!.
 lengt([_|T], R) :- length(T,I), R is I + 1.
 
 
+
 %Предикаты чтения и вывода списка
 readList(0,[]) :- !.
 readList(I,[X|T]) :- write('input - '),read(X), I1 is I - 1, readList(I1, T).
 
 write_list([]) :- !.
 write_list([X|T]) :- write(X), nl, write_list(T).
+
+
+
+%Задание_15
+% Дан целочисленный массив и натуральный индекс (число, меньшее размера
+% массива). Необходимо определить является ли элемент по указан-ному индексу глобальным минимумом.minList([H|T],Min):-minList([H|T],H,Min).
+elbyindex(L,I,El):-elbyindex(L,I,El,0).
+elbyindex([H|_],K,H,K):-!.
+elbyindex([_|Tail],I,El,Cou):-
+    I =:= Cou,
+    elbyindex(Tail,Cou,El,Cou);
+    Cou1 is Cou + 1,
+    elbyindex(Tail,I,El,Cou1).
+
+minElem(L,El):- minElem(L,999999,El).
+minElem([],El,El):-!.
+minElem([H|T],M,El):-
+    (H<M,M1 is H),
+    minElem(T,M1,El);
+    minElem(T,M,El).
+
+task15:-
+    write('input N'),
+    read(N),
+    readList(N,L),
+    read(I),
+    elbyindex(L,I,Elind),
+    minElem(L,Elmax),
+    (Elind =:= Elmax,write(yes);write(no)),!.
