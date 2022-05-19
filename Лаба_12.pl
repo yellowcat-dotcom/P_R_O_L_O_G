@@ -71,3 +71,10 @@ fun(X,Y,S):-
      N_X is X-1,
      %print(Q),nl, print(R),nl,
      (Q =:= R -> N_S=S+X, fun(N_X,Y,N_S);fun(N_X,Y,S)).
+
+
+
+%Задание_14
+%Построить предикат, получающий длину списка.
+lengt([],0):-!.
+lengt([_|T], R) :- length(T,I), R is I + 1.
