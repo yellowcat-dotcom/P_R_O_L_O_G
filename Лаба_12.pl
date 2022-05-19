@@ -116,3 +116,77 @@ task15:-
     elbyindex(L,I,Elind),
     minElem(L,Elmax),
     (Elind =:= Elmax,write(yes);write(no)),!.
+
+
+
+%Задание_16
+%Дан целочисленный массив.
+% Необходимо переставить в обратном порядке элементы массива,
+% расположенные между его минимальным и максимальным элементами.
+maxElem(L,El):- minElem(L,999999,El).
+maxElem([],El,El):-!.
+maxElem([H|T],M,El):-
+    (H>M,M1 is H),
+    maxElem(T,M1,El);
+    maxElem(T,M,El).
+
+append([],X,X).
+append([X|T],Y,[X|T1]):- append(T,Y,T1).
+
+maxIndex([H|T],Max,Index_Max):- maxIndex([H|T],H,Max,0,Index_Max,0).
+maxIndex([],NowMax,Max,NowIndex,Index_Max,Index):-Max is NowMax,Index_Max is NowIndex,!.
+maxIndex([H|T],NowMax,Max,NowIndex,Index_Max,Index):-
+    Index1 is Index+1,
+    (H >= NowMax,maxIndex(T,H,Max,Index,Index_Max,Index1);maxIndex(T,NowMax,Max,NowIndex,Index_Max,Index1)),!.
+
+minIndex([H|T],Max,Index_Max):- minIndex([H|T],H,Max,0,Index_Max,0).
+minIndex([],NowMax,Max,NowIndex,Index_Max,Index):-Max is NowMax,Index_Max is NowIndex,!.
+minIndex([H|T],NowMax,Max,NowIndex,Index_Max,Index):-
+    Index1 is Index+1,
+    (NowMax>= H,minIndex(T,H,Max,Index,Index_Max,Index1);minIndex(T,NowMax,Max,NowIndex,Index_Max,Index1)),!.
+
+makeEmptyList([]).
+
+cutList(List,From,To,NewList):-cutList(List,From,To,NewList,0).
+cutList([],From,To,NewList,I):-makeEmptyList(NewList),!.
+cutList([H|T],From,To,NewList,I):-
+    I1 is I+1,
+    (I>=From,
+    (I<To,cutList(T,From,To,NewList1,I1),append([H],NewList1,NewList);makeEmptyList(NewList));
+    cutList(T,From,To,NewList,I1)),!.
+
+takeOnIndex(List,Index,Elem):-takeOnIndex(List,Index,Elem,0).
+takeOnIndex([H|T],Index,Elem,I):-
+    I1 is I+1,
+    (I is Index,Elem is H;takeOnIndex(T,Index,Elem,I1)),!.
+
+swapList(List,NewList):-lengt(List,Length),Length1 is Length-1,swapList(List,NewList,Length1).
+swapList(List,NewList,-1):-makeEmptyList(NewList),!.
+swapList(List,NewList,I):-
+    takeOnIndex(List,I,Elem),
+    I1 is I-1,
+    swapList(List,NewList1,I1),
+    append([Elem],NewList1,NewList),!.
+
+swapBetweenMinAndMax(List,NewList):-
+    lengt(List,Length),
+    maxIndex(List,Max,IndexMax),
+    minIndex(List,Min,IndexMin),
+    (
+        IndexMax < IndexMin,
+
+        IndexMax1 is IndexMax+1,
+        cutList(List,0,IndexMax1,FirstPart),
+        cutList(List,IndexMax1,IndexMin,SecondPart),
+        cutList(List,IndexMin,Length,ThirdPart);
+
+        IndexMin1 is IndexMin+1,
+        cutList(List,0,IndexMin1,FirstPart),
+        cutList(List,IndexMin1,IndexMax,SecondPart),
+        cutList(List,IndexMax,Length,ThirdPart)
+    ),
+    swapList(SecondPart,SwapedSecondPart),
+    append(FirstPart,SwapedSecondPart,FSPart),
+    append(FSPart,ThirdPart,NewList).
+
+task16:- read(N),readList(N,List),swapBetweenMinAndMax(List,NewList),write_list(NewList),!.
