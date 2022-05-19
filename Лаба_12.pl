@@ -206,3 +206,21 @@ ff([_|T],Min,MinInd,Max,MaxInd,NowInd,M,L):- N_I is NowInd+1,
 ff([H|T],Min,MinInd,Max,MaxInd,NowInd,M,L):- N_I is NowInd+1,append(M,[H],C), ff(T,Min,MinInd,Max,MaxInd,N_I,C,L).
 
 tassk17:- read(N),readList(N,List),ff(List,NewList),write_list(NewList),!.
+
+
+
+%Задание_18
+%Дан целочисленный массив. Необходимо осуществить циклический сдвиг элементов массива вправо на одну позицию.
+%append([],X,X).
+%append([X|T],Y,[X|T1]):- append(T,Y,T1).
+q([H|T],L):-q(T,L).
+q([T],L):-L is T.
+
+write_list1([T]) :- !.
+write_list1([X|T]) :- write(X), nl, write_list1(T).
+task18:-
+      read(N),
+      readList(N,List),
+      q(List,L),
+      append([L],List,NewList),
+      write_list1(NewList),!.
