@@ -63,4 +63,38 @@ task12:-
     readList(N,L),
     spisokX(L,L1),
     unicList(L1,L2),
-    write(L2).
+    write(L2).%Задача_13
+%Для введенного списка построить новый с элементами,
+%большими, чем среднее арифметическое списка,
+%но меньшими, чем его максимальное значе-ние.
+maxElem([H|T],El):- maxElem([H|T],H,El).
+maxElem([],El,El):-!.
+maxElem([H|T],M,El):-
+    (H>=M,M1 is H),
+    maxElem(T,M1,El);
+    maxElem(T,M,El).
+
+sumList([H|T],S):-sumList([H|T],S,0).
+sumList([],S,S):-!.
+sumList([H|T],S,X):-
+    Nx is X+H,sumList(T,S,Nx).
+
+kolList([H|T],S):-kolList([H|T],S,0).
+kolList([],S,S):-!.
+kolList([H|T],S,X):-
+    Nx is X+1,kolList(T,S,Nx).
+
+srAr(List,X):-
+    sumList(List,A),kolList(List,B),X is A/B.
+
+nList([H|T],List):-srAr([H|T],K),maxElem([H|T],M),nList([H|T],K,M,List,[]).
+nList([],_,_,List,List):-!.
+nList([H|T],K,M,ListO,List):-
+    H>K,H<M,append(List,[H],C),nList(T,K,M,ListO,C).
+nList([H|T],K,M,ListO,List):-nList(T,K,M,ListO,List).
+
+task13:-
+    read(N),
+    readList(N,L),
+    nList(L,List),
+    write(List).
