@@ -222,3 +222,27 @@ task19:-
     in_list(Sportsman,[_,richard,Sport,_]),
     write("Australian is "), write(Name), nl,
     write("Richard sport - "), write(Sport),!.
+
+task20:-
+    Guys=[_,_,_,_],
+    in_list(Guys,[kuznetsov,_]),
+    in_list(Guys,[tokarev,_]),
+    in_list(Guys,[slesarev,_]),
+    in_list(Guys,[rezchikov,_]),
+    in_list(Guys,[_,kuznets]),
+    in_list(Guys,[_,tokar]),
+    in_list(Guys,[_,slesar]),
+    in_list(Guys,[_,rezchik]),
+    not(in_list(Guys,[kuznetsov,kuznets])),
+    not(in_list(Guys,[kuznetsov,slesar])),
+    not(in_list(Guys,[tokarev,tokar])),
+    not(in_list(Guys,[slesarev,slesar])),
+    not(in_list(Guys,[slesarev,tokar])),
+    not(in_list(Guys,[rezchikov,rezchik])),
+
+    not(near(Guys,[kuznetsov,_],[_,slesar])),
+    not(near(Guys,[rezchikov,_],[_,rezchik])),
+    rightInList(Guys,[_,tokar],[slesarev,_]),
+    leftInList(Guys,[X,_],[_,kuznets]),
+    write("To the left of the kuznetsa sits "),write(X),nl,
+    write(Guys),!.
