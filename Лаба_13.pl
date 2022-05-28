@@ -98,3 +98,18 @@ task13:-
     readList(N,L),
     nList(L,List),
     write(List).
+
+
+%14
+task14:-
+    Color = [_,_,_],
+    in_list(Color,[belokurov,_]),
+    in_list(Color,[chernov,_]),
+    in_list(Color,[ryzhov,_]),
+    in_list(Color,[_,blond]),
+    in_list(Color,[_,black]),
+    in_list(Color,[_,ginger]),
+    not(in_list(Color,[belokurov,blond])),
+    not(in_list(Color,[chernov,black])),
+    not(in_list(Color,[ryzhov,ginger])),
+    write(Color),!.
